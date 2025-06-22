@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
 {
@@ -10,13 +12,22 @@ public class Tower : MonoBehaviour
     private float attackTimer = 0f;
 
     [Header("Level Settings")]
-    public int level = 1;
+    [SerializeField] AnimationCurve experienceCurve;
+    [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] TextMeshProUGUI experienceText;
+    [SerializeField] Image experienceFill;
+    private int level;
     public int currentXP = 0;
-    public int xpToNextLevel = 50;
-    public float xpMultiplier = 1.5f;
+
+    private int previousLevelsExperience, nextLevelsExperience;
 
 
     public GameObject projectilePrefab;
+
+    void Start()
+    {
+        LevelUp();
+    }
 
     void Update()
     {
@@ -30,6 +41,11 @@ public class Tower : MonoBehaviour
                 Attack(target);
                 attackTimer = attackCooldown;
             }
+        }
+
+        if(Input.GetButtonDown("Fire1"))
+        {
+            GainXP(5); // For testing purposes, gain XP on mouse click
         }
     }
 
@@ -67,25 +83,35 @@ public class Tower : MonoBehaviour
     public void GainXP(int amount)
     {
         currentXP += amount;
-        Debug.Log($"Torre ganhou {amount} XP! XP atual: {currentXP}");
+        Debug.Log("Gained " + amount + " XP. Current XP: " + currentXP + ", to next level: " + nextLevelsExperience);
+        CheckForLevelUp();
+        UpdateUI();
+    }
 
-        while (currentXP >= xpToNextLevel)
+    private void CheckForLevelUp()
+    {
+        if (currentXP >= nextLevelsExperience)
         {
-            currentXP -= xpToNextLevel;
+            Debug.Log("Subiu de nivel: " + level);
+            level++;
             LevelUp();
         }
     }
 
     private void LevelUp()
     {
-        level++;
-        xpToNextLevel = Mathf.CeilToInt(xpToNextLevel * xpMultiplier);
+        previousLevelsExperience = (int)experienceCurve.Evaluate(level); //menos 1 porque o nível atual já foi incrementado
+        nextLevelsExperience = (int)experienceCurve.Evaluate(level + 1);
+        UpdateUI();
+    }
 
-        // Melhoria dos atributos da torre
-        damage += 5f;
-        attackRange += 0.5f;
-        attackCooldown *= 0.9f;
+    private void UpdateUI()
+    {
+        int start = currentXP - previousLevelsExperience;
+        int end = nextLevelsExperience - previousLevelsExperience;
 
-        Debug.Log($"Torre subiu para o nível {level}!");
+        levelText.text = level.ToString();
+        experienceText.text = start + "exp / " + end + "xp";
+        experienceFill.fillAmount = (float)start / (float)end;
     }
 }
