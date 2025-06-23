@@ -1385,15 +1385,11 @@ PrefabInstance:
       objectReference: {fileID: 532487069}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
-      propertyPath: experienceCurve.m_Curve.Array.data[0].time
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[1].time
-      value: 99
+      value: 0.09696659
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[2].time
@@ -1412,12 +1408,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
-      propertyPath: experienceCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[1].value
-      value: 1000000
+      value: 0.010144338
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[2].value
@@ -1436,12 +1428,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
-      propertyPath: experienceCurve.m_Curve.Array.data[0].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[1].inSlope
-      value: 0
+      value: 0.06467745
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[2].inSlope
@@ -1456,16 +1444,12 @@ PrefabInstance:
       value: 0.7704011
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
-      propertyPath: experienceCurve.m_Curve.Array.data[0].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[1].inWeight
-      value: 0
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[1].outSlope
-      value: 0
+      value: 0.06467745
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[2].inWeight
@@ -1492,12 +1476,8 @@ PrefabInstance:
       value: 0.7704011
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
-      propertyPath: experienceCurve.m_Curve.Array.data[0].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[1].outWeight
-      value: 0
+      value: 0.37590304
       objectReference: {fileID: 0}
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[2].outWeight
@@ -1510,14 +1490,6 @@ PrefabInstance:
     - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: experienceCurve.m_Curve.Array.data[4].outWeight
       value: 0.31630614
-      objectReference: {fileID: 0}
-    - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
-      propertyPath: experienceCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 579877626314492731, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
-      propertyPath: experienceCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2534757154906339442, guid: 53da2a8c86dc818499cd66de3758f10e, type: 3}
       propertyPath: m_Name
