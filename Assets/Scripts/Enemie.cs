@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemie : MonoBehaviour
 {
     [Header("Enemie Default Settings")]
-    public float speed = 2f;
+    public float speed = 5f;
     public float health = 10f;
     public float damage = 10f;
     public Tower targetTower;
@@ -11,6 +11,9 @@ public class Enemie : MonoBehaviour
 
     public float spawnInterval = 0.6f;
     public Rigidbody2D rb;
+
+    private bool isKnockedBack = false;
+    private float knockbackTimer = 0f;
 
     private void Awake()
     {
@@ -21,8 +24,21 @@ public class Enemie : MonoBehaviour
     {
         targetTower = tower;
     }
+
     public void Update()
     {
+        if (isKnockedBack)
+        {
+            knockbackTimer -= Time.deltaTime;
+            if (knockbackTimer <= 0f)
+            {
+                isKnockedBack = false;
+                rb.linearVelocity = Vector2.zero;
+            }
+
+            return; // Ignora movimento durante knockback
+        }
+
         if (targetTower != null)
         {
             MoveTowardsTarget();
@@ -31,10 +47,11 @@ public class Enemie : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
-        Vector3 direction = (targetTower.transform.position - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        Vector2 direction = (targetTower.transform.position - transform.position).normalized;
+        Vector2 newPosition = rb.position + direction * speed * Time.deltaTime;
+        rb.MovePosition(newPosition);
 
-        if (Vector3.Distance(transform.position, targetTower.transform.position) < 0.5f)
+        if (Vector2.Distance(transform.position, targetTower.transform.position) < 0.5f)
         {
             AttackTarget();
         }
@@ -53,5 +70,13 @@ public class Enemie : MonoBehaviour
                 Debug.Log("Tower destroyed!");
             }
         }
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force, float duration)
+    {
+        isKnockedBack = true;
+        knockbackTimer = duration;
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 }

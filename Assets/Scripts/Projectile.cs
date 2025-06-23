@@ -3,18 +3,17 @@ using UnityEngine;
 public class Projectile2D : MonoBehaviour
 {
     public float speed = 10f;
-    public float knockbackForce = 5f;
+    public float knockbackForce = 2f;
     private Transform target;
     private float damage;
     private Tower ownerTower;
-    
 
-public void Init(Transform target, float damage, Tower tower)
-{
-    this.target = target;
-    this.damage = damage;
-    this.ownerTower = tower;
-}
+    public void Init(Transform target, float damage, Tower tower)
+    {
+        this.target = target;
+        this.damage = damage;
+        this.ownerTower = tower;
+    }
 
     void Update()
     {
@@ -26,18 +25,24 @@ public void Init(Transform target, float damage, Tower tower)
 
         Vector3 direction = (target.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
+    }
 
-        if (Vector2.Distance(transform.position, target.position) < 0.2f)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        
+        if (other.CompareTag("Enemy"))
         {
-            Enemie enemie = target.GetComponent<Enemie>();
+            Enemie enemie = other.GetComponent<Enemie>();
+
             if (enemie != null)
             {
                 enemie.health -= damage;
 
                 if (enemie.rb != null)
                 {
-                    Vector2 knockDir = (target.position - transform.position).normalized;
-                    enemie.rb.AddForce(knockDir * knockbackForce, ForceMode2D.Impulse);
+                    Vector2 knockDir = (enemie.transform.position - transform.position).normalized;
+                    enemie.ApplyKnockback(knockDir, knockbackForce, 0.2f);
+
                 }
 
                 if (enemie.health <= 0f)
@@ -45,9 +50,9 @@ public void Init(Transform target, float damage, Tower tower)
                     ownerTower?.GainXP(enemie.xpValue);
                     Destroy(enemie.gameObject);
                 }
-            }
 
-            Destroy(gameObject);
+                Destroy(gameObject); // destrói o projétil após o impacto
+            }
         }
     }
 }

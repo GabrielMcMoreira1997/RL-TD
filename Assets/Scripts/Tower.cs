@@ -16,16 +16,16 @@ public class Tower : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI experienceText;
     [SerializeField] Image experienceFill;
-    private int level;
-    public int currentXP = 0;
+    
+    private int level, currentXP;
 
     private int previousLevelsExperience, nextLevelsExperience;
-
 
     public GameObject projectilePrefab;
 
     void Start()
     {
+        level = 1; // Começa no nível 1
         LevelUp();
     }
 
@@ -43,9 +43,9 @@ public class Tower : MonoBehaviour
             }
         }
 
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
-            GainXP(5); // For testing purposes, gain XP on mouse click
+            GainXP(5); // Teste de XP manual
         }
     }
 
@@ -83,16 +83,15 @@ public class Tower : MonoBehaviour
     public void GainXP(int amount)
     {
         currentXP += amount;
-        Debug.Log("Gained " + amount + " XP. Current XP: " + currentXP + ", to next level: " + nextLevelsExperience);
         CheckForLevelUp();
         UpdateUI();
     }
 
     private void CheckForLevelUp()
     {
-        if (currentXP >= nextLevelsExperience)
+        // Proteção: só sobe de nível se o próximo XP for válido (> atual)
+        if (currentXP >= nextLevelsExperience && nextLevelsExperience > previousLevelsExperience)
         {
-            Debug.Log("Subiu de nivel: " + level);
             level++;
             LevelUp();
         }
@@ -100,8 +99,14 @@ public class Tower : MonoBehaviour
 
     private void LevelUp()
     {
-        previousLevelsExperience = (int)experienceCurve.Evaluate(level); //menos 1 porque o nível atual já foi incrementado
-        nextLevelsExperience = (int)experienceCurve.Evaluate(level + 1);
+        float prev = experienceCurve.Evaluate(level);
+        float next = experienceCurve.Evaluate(level + 1);
+
+        Debug.Log($"[LevelUp] Level: {level}, PrevXP: {prev}, NextXP: {next}");
+
+        previousLevelsExperience = (int)prev;
+        nextLevelsExperience = (int)next;
+
         UpdateUI();
     }
 
@@ -110,8 +115,10 @@ public class Tower : MonoBehaviour
         int start = currentXP - previousLevelsExperience;
         int end = nextLevelsExperience - previousLevelsExperience;
 
+        Debug.Log($"[UpdateUI] Next: {nextLevelsExperience} | Previous: {previousLevelsExperience} | Start: {start} | End: {end}");
+
         levelText.text = level.ToString();
-        experienceText.text = start + "exp / " + end + "xp";
-        experienceFill.fillAmount = (float)start / (float)end;
+        experienceText.text = start + " exp / " + end + " exp";
+        experienceFill.fillAmount = end > 0 ? (float)start / end : 0;
     }
 }
