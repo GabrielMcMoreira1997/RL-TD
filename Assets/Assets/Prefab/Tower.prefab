@@ -222,9 +222,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  damage: 15
+  damage: 7
   attackRange: 5
   attackCooldown: 1
+  experienceCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  levelText: {fileID: 0}
+  experienceText: {fileID: 0}
+  experienceFill: {fileID: 0}
+  currentXP: 0
   projectilePrefab: {fileID: 8510036424570872096, guid: 67c72cc9ce2297342994b2ffdb83c1de, type: 3}
 --- !u!1 &5389333483799882452
 GameObject:
