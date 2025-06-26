@@ -103,12 +103,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.6
-  health: 10
+  maxhealth: 20
+  health: 20
   damage: 10
   targetTower: {fileID: 0}
   xpValue: 10
   spawnInterval: 0.6
   rb: {fileID: 0}
+  healthBarPrefab: {fileID: 4997030567165222002, guid: 5371af2a7f9ee984089e326fb7d98203, type: 3}
 --- !u!50 &-6339181799282826088
 Rigidbody2D:
   serializedVersion: 5

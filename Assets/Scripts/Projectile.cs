@@ -1,54 +1,47 @@
 using UnityEngine;
 
-public class Projectile2D : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     public float speed = 10f;
     public float knockbackForce = 2f;
     private Transform target;
     private float damage;
-    private Tower ownerTower;
 
-    public void Init(Transform target, float damage, Tower tower)
+    public void Init(Transform target, float damage)
     {
         this.target = target;
         this.damage = damage;
-        this.ownerTower = tower;
     }
 
-    void Update()
+void Update()
+{
+    if (target == null)
     {
-        if (target == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Vector3 direction = (target.position - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        Destroy(gameObject);
+        return;
     }
+
+    Vector2 direction = (target.position - transform.position).normalized;
+    transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        Debug.Log("Projectile collided with: " + other.name);
         if (other.CompareTag("Enemy"))
         {
+            Debug.Log("Projectile hit an enemy: " + other.name);
             Enemie enemie = other.GetComponent<Enemie>();
 
             if (enemie != null)
             {
-                enemie.health -= damage;
+                enemie.TakeDamage(damage);
 
                 if (enemie.rb != null)
                 {
                     Vector2 knockDir = (enemie.transform.position - transform.position).normalized;
                     enemie.ApplyKnockback(knockDir, knockbackForce, 0.2f);
 
-                }
-
-                if (enemie.health <= 0f)
-                {
-                    ownerTower?.GainXP(enemie.xpValue);
-                    Destroy(enemie.gameObject);
                 }
 
                 Destroy(gameObject); // destrói o projétil após o impacto

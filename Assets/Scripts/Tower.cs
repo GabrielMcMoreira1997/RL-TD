@@ -38,6 +38,7 @@ public class Tower : MonoBehaviour
             Enemie target = FindNearestEnemyInRange();
             if (target != null)
             {
+                Debug.Log($"[Tower] Attacking enemy: {target.name} at distance: {Vector2.Distance(transform.position, target.transform.position)}");
                 Attack(target);
                 attackTimer = attackCooldown;
             }
@@ -45,7 +46,7 @@ public class Tower : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            GainXP(5); // Teste de XP manual
+            GainXP(100); // Teste de XP manual
         }
     }
 
@@ -71,7 +72,7 @@ public class Tower : MonoBehaviour
     void Attack(Enemie enemy)
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        projectile.GetComponent<Projectile2D>().Init(enemy.transform, damage, this);
+        projectile.GetComponent<Projectile>().Init(enemy.transform, damage);
     }
 
     void OnDrawGizmosSelected()

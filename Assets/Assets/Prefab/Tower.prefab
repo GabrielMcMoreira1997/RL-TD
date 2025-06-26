@@ -227,15 +227,32 @@ MonoBehaviour:
   attackCooldown: 1
   experienceCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 10101.01
+      outSlope: 10101.01
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 99
+      value: 1000000
+      inSlope: 10101.01
+      outSlope: 10101.01
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   levelText: {fileID: 0}
   experienceText: {fileID: 0}
   experienceFill: {fileID: 0}
-  currentXP: 0
-  projectilePrefab: {fileID: 8510036424570872096, guid: 67c72cc9ce2297342994b2ffdb83c1de, type: 3}
+  projectilePrefab: {fileID: 4597344861144066970, guid: 9df3e6e18bab93744b4d1f88121835df, type: 3}
 --- !u!1 &5389333483799882452
 GameObject:
   m_ObjectHideFlags: 0

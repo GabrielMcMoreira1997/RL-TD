@@ -4,6 +4,8 @@ public class Enemie : MonoBehaviour
 {
     [Header("Enemie Default Settings")]
     public float speed = 5f;
+    public float maxhealth = 10f;
+
     public float health = 10f;
     public float damage = 10f;
     public Tower targetTower;
@@ -15,9 +17,23 @@ public class Enemie : MonoBehaviour
     private bool isKnockedBack = false;
     private float knockbackTimer = 0f;
 
+    
+    public GameObject healthBarPrefab;
+    private HealthBar healthBar;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        health = maxhealth; // Inicializa a saúde com o valor máximo
+
+        GameObject bar = Instantiate(healthBarPrefab);
+        healthBar = bar.GetComponent<HealthBar>();
+        healthBar.target = this.transform;
+        healthBar.setOffset(new Vector3(0.1f, 0.5f, 0)); // Ajuste para cima da cabeça
     }
 
     public void setTargetTower(Tower tower)
@@ -78,5 +94,27 @@ public class Enemie : MonoBehaviour
         knockbackTimer = duration;
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(direction * force, ForceMode2D.Impulse);
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        health = Mathf.Clamp(health, 0, maxhealth);
+        healthBar.SetHealth(health, maxhealth);
+
+        if (health <= 0f)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        if (targetTower != null)
+        {
+            targetTower.GainXP(xpValue); // Adiciona XP à torre
+        }
+        Destroy(healthBar.gameObject);
+        Destroy(gameObject);
     }
 }
